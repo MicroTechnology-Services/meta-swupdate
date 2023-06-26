@@ -19,6 +19,8 @@ do_swuimage[cleandirs] += "${SWUDEPLOYDIR}"
 do_swuimage[sstate-inputdirs] = "${SWUDEPLOYDIR}"
 do_swuimage[sstate-outputdirs] = "${DEPLOY_DIR_IMAGE}"
 do_swuimage[stamp-extra-info] = "${MACHINE}"
+do_swuimage[depends] += "${@ 'openssl-native:do_populate_sysroot' if d.getVar('SWUPDATE_SIGNING') or d.getVar('SWUPDATE_ENCRYPT_SWDESC') or d.getVarFlags('SWUPDATE_IMAGES_ENCRYPTED') else ''}"
+
 
 python () {
     deps = " " + swupdate_getdepends(d)
